@@ -1,0 +1,175 @@
+body{
+    font-family: 'Open Sans', sans-serif;
+    display: flex; flex-direction:row; 
+    margin:1px; 
+    background-color:rgb(0, 0, 0)
+}
+
+body a{
+    text-decoration: none;
+    color: white;
+}
+
+.searchCard{
+    display:flex; 
+    flex-direction:row; 
+    margin-top:6px; 
+    padding:4px;
+    border-top: 1px solid grey;
+    color: rgb(187, 187, 187);
+    height: 10vh;
+}
+
+.searchCard img{
+    height:7vh; 
+    border-radius:50%; 
+    margin-right:2vh;
+    margin-top: 1vh;
+}
+
+.search-details{
+    color: rgb(255, 255, 255);
+}
+
+.search-details p{
+    color: rgb(203, 203, 203);
+}
+
+.search-details h3{
+    font-size: small;
+}
+
+.sidebar{
+    display:flex; 
+    flex-direction:column; 
+    width:20% ; 
+    background-image: linear-gradient(220deg, #131313, rgb(49, 49, 49));
+    height:99vh;
+    margin: 0 5px 0 5px;
+    /* border-radius: 20px; */
+    padding-top: 5px;
+    padding-left: 4vh;
+    padding-right: 6vh;
+}
+
+.search-bar{
+    height: 4vh; 
+    width:96%; 
+    font-size:2vh;
+    margin: auto;
+    background-color: transparent;
+    color: rgb(203, 203, 203);
+    border-top: 0ch transparent;
+    border-left: 0ch transparent;
+    border-right: 0ch transparent;
+}
+
+.search-bar:focus{
+    outline: none;
+}
+
+.search-btn{ 
+    font-size:2vh;
+    margin: 2%;
+    margin-left: -10%;
+    height: 4.6vh;
+    background-color: transparent;
+}
+
+#searchResults::-webkit-scrollbar{
+    display: none;
+}
+
+#searchResults{
+    padding: 2%;
+}
+
+.nav-btn{
+    border-radius: 50%;
+    background-color: rgb(176, 176, 176);
+    border: 0px solid white;
+    height: 4vh;
+    margin: 5px;
+}
+
+.nav-btn:hover{
+    scale: 1.1;
+}
+
+#curr_page{
+    border-radius: 20%;
+}
+
+#header{
+    display:flex; 
+    justify-content:right; 
+    margin:10px -10px;
+    background-color:  #927cb3;
+}
+
+.right-side-bar{
+    width:82%; 
+    background-color: #19212f00; 
+    height:99vh; 
+    overflow:auto; 
+    padding: 0px 10px 0px 10px;
+}
+
+.right-side-bar::-webkit-scrollbar{
+    display: none;
+}
+
+.repos{
+    display: none;
+}
+
+#user-repos{
+    display: grid; 
+    grid-gap: 40px;
+    grid-template-columns: 1fr 1fr; 
+    padding:10px;
+}
+
+
+
+.repos-card{
+    background-image: linear-gradient(220deg, rgb(216, 216, 216), rgb(218, 218, 218));
+    box-shadow: 1px 1px #e8f4ff; 
+    padding:10px;
+    border: 1px solid rgba(128, 128, 128, 0.414);
+    border-radius: 5px;
+}
+
+.repos-card:hover{
+    cursor: pointer;
+}
+
+.repos-card h2{
+    margin-bottom: 2px;
+}
+
+.repos-card p{
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.created{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.languagesCards{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.lanCard{
+    background-color: rgb(61, 132, 203);
+    color: white;
+    margin: 1px 2px;
+    padding: 1px 4px;
+    border-radius: 5px;
+
+}
+

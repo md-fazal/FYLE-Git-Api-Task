@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Repos</title>
+    <link rel="stylesheet" href="./CSS/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <script type="module">
+        import { Octokit, App } from "https://esm.sh/octokit";
+        import { createTokenAuth } from "https://esm.sh/@octokit/auth-token"
+        import { restEndpointMethods } from "https://esm.sh/@octokit/plugin-rest-endpoint-methods";
+        import {searchUsers, createSearchDiv, retrieveRepos} from  "./JS/utils.js"
+
+        const auth = createTokenAuth("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");
+        const { token } = await auth();
+
+        const MyOctokit = Octokit.plugin(restEndpointMethods);
+        const octokit = new Octokit({ auth: String(token) });
+
+        await octokit.rest.users.getAuthenticated()
+
+        //Event Listeners ->
+        document.getElementById("searchButton").addEventListener("click", function(){
+            console.log("button clicked")
+            const value = document.getElementById("searchQuery").value
+            searchUsers(octokit, value, 10 , 1)
+        })
+
+        document.getElementById("searchQuery").addEventListener("keyup", function(event){
+            if (event.key === "Enter") {
+                console.log("clicked Enter")
+                event.preventDefault();
+                const value = document.getElementById("searchQuery").value
+                searchUsers(octokit, value, 10 , 1)
+              }
+        })
+
+        document.getElementById("per_page").addEventListener("keyup", function(event){
+            if (event.key === "Enter") {
+                event.preventDefault();
+                var value = null;
+                if (document.getElementById("per_page").value >= 100){
+                    document.getElementById("per_page").value = 100
+                    value = 100
+                }
+                else{
+                    value = document.getElementById("per_page").value
+                }
+                console.log("here1")
+                retrieveRepos(octokit, null, value, 1)
+              }
+        })
+
+        document.getElementById("prev_page")?.addEventListener("click", function(){
+            document.getElementById("curr_page").value =  Number(document.getElementById("curr_page").value) - 1
+            console.log("clicked")  
+            retrieveRepos(octokit, null, document.getElementById("per_page").value, document.getElementById("curr_page").value)
+        })
+
+        document.getElementById("next_page")?.addEventListener("click", function(){
+            document.getElementById("curr_page").value =  Number(document.getElementById("curr_page").value) + 1
+            console.log("clicked")  
+            retrieveRepos(octokit, null, document.getElementById("per_page").value, document.getElementById("curr_page").value)
+        })
+    
+        document.getElementById("curr_page").addEventListener("keypress", function(event){
+            if (event.key === "Enter") {
+                event.preventDefault();
+                var value = document.getElementById("curr_page").value;
+                retrieveRepos(octokit, null, document.getElementById("per_page").value, value)
+              }
+        })
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <div style="display:flex; flex-direction:row ;">
+            <input class="search-bar" id="searchQuery" type="text" placeholder="search user">
+            <img class="search-btn" style="width: 4vh;" id="searchButton" src="./assets/search.png" alt="">
+        </div>
+        <div id="searchResults" style="display:flex; flex-direction:column; overflow:auto;"> 
+            <p style="color: white; display:flex; justify-content:center;">No users to show</p>
+        </div>
+    </div>
+    <div class="right-side-bar">
+        <div class="no-user">
+            <h1 style="display: flex; justify-content:center; color:white;">No User Selected</h1>
+        </div>
+        <div id="header">
+        </div>
+        <div class="repos">
+            <div  style="display: flex; justify-content: right; margin-right:10px">
+                <label style="color: white; margin-left:5px;">Repos Per Page: </label>
+                <input  type="number" id="per_page" min="1" max="100" value="10">
+            </div>
+            <h2 style="color: white">GitHub Repos: </h2>
+            <div id="user-repos">
+                
+            </div>
+            <div id="navigation" style="display: flex; justify-content:center">
+                <button class="nav-btn" id="prev_page"><img style="height: 10px;" src="./assets/back.png" alt="prev_page"></button>
+                <input style="width: 30px;" id="curr_page" type="number" value="1">
+                <button class="nav-btn"  id="next_page"><img style="height: 10px;" src="/assets/next.png" alt="next_page"></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
